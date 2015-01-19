@@ -20,7 +20,7 @@ Ext.define("NotesApp.view.NoteEditor", {
             xtype: "button",
             ui: "action",
             text: "Save",
-            // handler: this.onSaveButtonTap,
+            handler: this.onSaveButtonTap,
             scope: this
         };
 

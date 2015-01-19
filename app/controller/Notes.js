@@ -11,10 +11,10 @@ Ext.define("NotesApp.controller.Notes", {
             	//when view fires newNoteCommand, I will call my onNewNoteCommand function
                 newNoteCommand: "onNewNoteCommand",
                 editNoteCommand: "onEditNoteCommand"
+            },
+            noteEditor: {
+            	saveNoteCommand: "onSaveNoteCommand" //LHS = view, RHS = controller
             }
-            // noteEditor: {
-            // 	saveNoteCommand: "onSaveNoteCommand" //LHS = view, RHS = controller
-            // }
         }
     },
 
@@ -50,44 +50,48 @@ Ext.define("NotesApp.controller.Notes", {
         this.activateNoteEditor(record);
     },
 
- //    onSaveNoteCommand: function () {
+    onSaveNoteCommand: function () {
 
-	//     console.log("onSaveNoteCommand");
+	    console.log("onSaveNoteCommand");
 
-	//     var noteEditor = this.getNoteEditor();
+	    var noteEditor = this.getNoteEditor();
 
-	//     var currentNote = noteEditor.getRecord();
-	//     var newValues = noteEditor.getValues();
+	    var currentNote = noteEditor.getRecord();
+	    var newValues = noteEditor.getValues();
 
-	//     // Update the current note's fields with form values.
-	//     currentNote.set("title", newValues.title);
-	//     currentNote.set("narrative", newValues.narrative);
+	    // Update the current note's fields with form values.
+	    currentNote.set("title", newValues.title);
+	    currentNote.set("narrative", newValues.narrative);
 
-	//     var errors = currentNote.validate();
+	    var errors = currentNote.validate();
 
-	//     if (!errors.isValid()) {
-	//         Ext.Msg.alert('Wait!', errors.getByField("title")[0].getMessage(), Ext.emptyFn);
-	//         currentNote.reject();
-	//         return;
-	//     }
+	    if (!errors.isValid()) {
+	        Ext.Msg.alert('Wait!', errors.getByField("title")[0].getMessage(), Ext.emptyFn);
+	        currentNote.reject();
+	        return;
+	    }
 
-	//     var notesStore = Ext.getStore("Notes");
+	    var notesStore = Ext.getStore("Notes");
 
-	//     if (null == notesStore.findRecord('id', currentNote.data.id)) {
-	//         notesStore.add(currentNote);
-	//     }
+	    if (null == notesStore.findRecord('id', currentNote.data.id)) {
+	        notesStore.add(currentNote);
+	    }
 
-	//     notesStore.sync();
+	    notesStore.sync();
 
-	//     notesStore.sort([{ property: 'dateCreated', direction: 'DESC'}]);
+	    notesStore.sort([{ property: 'dateCreated', direction: 'DESC'}]);
 
-	//     this.activateNotesList();
-	// },
+	    this.activateNotesList();
+	},
 
-	// activateNotesList: function () {
-	// 	console.log("activateNotesList: before animation");
-	//     Ext.Viewport.animateActiveItem(this.getNotesListContainer(), this.slideRightTransition);
-	// },
+	activateNotesList: function () {
+		console.log("activateNotesList: before animation");
+	    //Ext.Viewport.animateActiveItem(this.getNotesListContainer(), this.slideRightTransition);
+	    //var notesListContainer = this.getNotesListContainer();
+	    // notesListContainer.show();
+	    //Ext.Viewport.setActiveItem(notesListContainer);
+	    //Ext.Viewport.show(notesListContainer);
+	},
 
     // Base Class functions.
     launch: function () {
