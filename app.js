@@ -17,8 +17,20 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
+    models: [
+        'Note'
+    ],
+
+    stores: [
+        'Notes'
+    ],
+
+    controllers: [
+        'Notes'
+    ],
+
     views: [
-        'Main'
+        'NotesListContainer', 'NotesList', 'NoteEditor'
     ],
 
     icon: {
@@ -44,7 +56,13 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('NotesApp.view.Main'));
+        //Ext.Viewport.add(Ext.create('NotesApp.view.Main'));
+        // var notesListContainer = Ext.create("NotesApp.view.NotesListContainer");
+        var notesListContainer = {xtype: "noteslistcontainer"};
+        var noteEditor = {xtype: "noteeditor"};
+        Ext.Viewport.add([notesListContainer, noteEditor]);
+
+        console.log("App launch");
     },
 
     onUpdated: function() {
