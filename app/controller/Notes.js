@@ -13,7 +13,9 @@ Ext.define("NotesApp.controller.Notes", {
                 editNoteCommand: "onEditNoteCommand"
             },
             noteEditor: {
-            	saveNoteCommand: "onSaveNoteCommand" //LHS = view, RHS = controller
+            	saveNoteCommand: "onSaveNoteCommand", //LHS = view, RHS = controller
+            	deleteNoteCommand: "onDeleteNoteCommand",
+            	backToHomeCommand: "onBackToHomeCommand"
             }
         }
     },
@@ -84,13 +86,31 @@ Ext.define("NotesApp.controller.Notes", {
 	    this.activateNotesList();
 	},
 
+	onDeleteNoteCommand: function () {
+
+	    console.log("onDeleteNoteCommand");
+
+	    var noteEditor = this.getNoteEditor();
+	    var currentNote = noteEditor.getRecord();
+	    var notesStore = Ext.getStore("Notes");
+
+	    notesStore.remove(currentNote);
+	    notesStore.sync();
+
+	    this.activateNotesList();
+	},
+
+	onBackToHomeCommand: function () {
+		console.log("onBackToHomeCommand");
+		this.activateNotesList();
+	},
+
 	activateNotesList: function () {
 		console.log("activateNotesList: before animation");
 	    //Ext.Viewport.animateActiveItem(this.getNotesListContainer(), this.slideRightTransition);
-	    //var notesListContainer = this.getNotesListContainer();
-	    // notesListContainer.show();
-	    //Ext.Viewport.setActiveItem(notesListContainer);
-	    //Ext.Viewport.show(notesListContainer);
+
+	    var noteEditor = this.getNoteEditor();
+	    noteEditor.hide();
 	},
 
     // Base Class functions.

@@ -13,7 +13,9 @@ Ext.define("NotesApp.view.NoteEditor", {
         var backButton = {
             xtype: "button",
             ui: "back",
-            text: "Home"
+            text: "Home",
+            handler: this.onBackButtonTap,
+            scope: this
         };
 
         var saveButton = {
@@ -39,6 +41,7 @@ Ext.define("NotesApp.view.NoteEditor", {
             xtype: "button",
             iconCls: "trash",
             iconMask: true,
+            handler: this.onDeleteButtonTap,
             scope: this
         };
 
@@ -75,6 +78,14 @@ Ext.define("NotesApp.view.NoteEditor", {
     onSaveButtonTap: function () {
 	    console.log("saveNoteCommand");
 	    this.fireEvent("saveNoteCommand", this);
+	},
+	onDeleteButtonTap: function () {
+	    console.log("deleteNoteCommand");
+	    this.fireEvent("deleteNoteCommand", this);
+	},
+	onBackButtonTap: function () {
+	    console.log("backToHomeCommand");
+	    this.fireEvent("backToHomeCommand", this);
 	}
 
 
